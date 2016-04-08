@@ -61,16 +61,23 @@ $app->get('/db/', function() use($app)
 
 $app->get('/leaderboards', function() use($app)
 {
-  return "<pre>" . \Cowsayphp\Cow::say("medium-leaderboard") . "</pre>";
+  $clientID = "a84e360b789f";
+  $clientSecret = "7a1c2c9af537c000d7cf75a3d0c7cd7ff1d1804a";
+  $callback = "https://medium-leaderboards.herokuapp.com/leaderboards/callback";
 
-  // $clientID = "a84e360b789f";
-  // $clientSecret = "7a1c2c9af537c000d7cf75a3d0c7cd7ff1d1804a";
-  //
-  // $shortTermAuthURL = "https://medium.com/m/oauth/authorize?client_id=" . $clientID . "
-  //                       &scope=basicProfile,publishPost
-  //                       &state=THISISMARK
-  //                       &response_type=code
-  //                       &redirect_uri={{redirectUri}}"
+  $shortTermAuthURL = "https://medium.com/m/oauth/authorize?client_id=" . $clientID . "
+                        &scope=basicProfile,publishPost
+                        &state=THISISMARK
+                        &response_type=code
+                        &redirect_uri=" . $callback;
+
+  header('Location: ' . filter_var($shortTermAuthURL, FILTER_SANITIZE_URL));
+
+});
+
+$app->get('/leaderboards/callback', function() use($app)
+{
+
 
 });
 
