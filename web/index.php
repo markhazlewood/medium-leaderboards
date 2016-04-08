@@ -71,7 +71,7 @@ $app->get('/leaderboards', function() use($app)
                         &response_type=code
                         &redirect_uri=" . $callback;
 
-  header('Location: ' . filter_var($shortTermAuthURL, FILTER_SANITIZE_URL));
+  return $app->redirect($shortTermAuthURL);
 
 });
 
