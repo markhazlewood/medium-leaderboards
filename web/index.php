@@ -78,7 +78,8 @@ $app->get('/leaderboards', function() use($app)
 $app->get('/leaderboards/callback', function() use($app)
 {
 
-
+  return "<pre>" . $request->query . "</pre>";
+  
 });
 
 
