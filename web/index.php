@@ -65,11 +65,11 @@ $app->get('/leaderboards', function() use($app)
   $clientSecret = "7a1c2c9af537c000d7cf75a3d0c7cd7ff1d1804a";
   $callback = "https://medium-leaderboards.herokuapp.com/leaderboards/callback";
 
-  $shortTermAuthURL = "https://medium.com/m/oauth/authorize?client_id=" . $clientID . "
+  $shortTermAuthURL = 'https://medium.com/m/oauth/authorize?client_id=' . $clientID . '
                         &scope=basicProfile,publishPost
                         &state=THISISMARK
                         &response_type=code
-                        &redirect_uri=" . $callback;
+                        &redirect_uri=' . $callback;
 
   return $app->redirect($shortTermAuthURL);
 
