@@ -80,7 +80,7 @@ $app->get('/leaderboards', function() use($app)
 $app->get('/leaderboards/callback', function(Request $request) use($app)
 {
 
-  return "<pre>" . sizeof($request) . "</pre>";
+  return "<pre>" . $request->get('error') . "</pre>";
 
 });
 
