@@ -1,6 +1,8 @@
 <?php
 
 require('../vendor/autoload.php');
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 $app = new Silex\Application();
 $app['debug'] = true;
@@ -78,7 +80,7 @@ $app->get('/leaderboards', function() use($app)
 $app->get('/leaderboards/callback', function(Request $request) use($app)
 {
 
-  return "<pre>" . $request->query->() . "</pre>";
+  return "<pre>" . sizeof($request) . "</pre>";
 
 });
 
