@@ -79,9 +79,9 @@ $app->get('/leaderboards', function() use($app)
 
 $app->get('/leaderboards/callback', function(Request $request) use($app)
 {
-  $error = $request->query->get('error');
-  $state = $request->query->get('state');
-  $code = $request->query->get('code');
+  $error = $request->query->get('error', "none");
+  $state = $request->query->get('state', "none");
+  $code = $request->query->get('code', "none");
 
   return "<pre>" . $error . ", " . $state . ", " . $code . "</pre>";
 
