@@ -59,7 +59,7 @@ $app->get('/db/', function() use($app)
 
 });
 
-$app->get('medium-leaderboard', function() use($app)
+$app->get('/leaderboards', function() use($app)
 {
   return "<pre>" . \Cowsayphp\Cow::say("medium-leaderboard") . "</pre>";
 
