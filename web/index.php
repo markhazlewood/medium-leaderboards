@@ -75,11 +75,11 @@ $app->get('/leaderboards', function() use($app)
 
 });
 
-$app->get('/leaderboards/callback', function() use($app)
+$app->get('/leaderboards/callback', function(Request $request) use($app)
 {
 
-  return "<pre>" . $request->query . "</pre>";
-  
+  return "<pre>" . $request->query->() . "</pre>";
+
 });
 
 
