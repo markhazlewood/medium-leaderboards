@@ -79,11 +79,11 @@ $app->get('/leaderboards', function() use($app)
 
 $app->get('/leaderboards/callback', function(Request $request) use($app)
 {
-  $error = $request->get('error');
-  $state = $request->get('state');
-  $code = $request->get('code');
+  $error = $request->query->get('error');
+  $state = $request->query->get('state');
+  $code = $request->query->get('code');
 
-  return "<pre>" . $request->get('state') . "</pre>";
+  return "<pre>" . $error . ", " . $state . ", " . $code . "</pre>";
 
 });
 
