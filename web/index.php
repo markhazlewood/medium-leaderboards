@@ -83,7 +83,7 @@ $app->get('/leaderboards/login-callback', function(Request $request) use($app)
   $state = $request->query->get('state', "none");
   $code = $request->query->get('code', "none");
 
-  return "<pre>" . $error . ", " . $state . ", " . $code . "</pre>";
+  return "<pre>error: " . $error . "<br />state: " . $state . "<br />code: " . $code . "</pre>";
 
 });
 
