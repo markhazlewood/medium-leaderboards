@@ -61,11 +61,11 @@ $app->get('/cowsay', function() use($app)
 //
 // });
 
-$app->get('/leaderboards', function() use($app)
+$app->get('/leaderboards/login', function() use($app)
 {
   $clientID = "a84e360b789f";
-  $clientSecret = "7a1c2c9af537c000d7cf75a3d0c7cd7ff1d1804a";
-  $callback = "https://medium-leaderboards.herokuapp.com/leaderboards/callback";
+  $clientSecret = getenv('MEDIUM_APP_CLIENT_SECRET');
+  $callback = "https://medium-leaderboards.herokuapp.com/leaderboards/login-callback";
 
   $shortTermAuthURL = 'https://medium.com/m/oauth/authorize?client_id=' . $clientID .
                         '&scope=basicProfile,publishPost' .
@@ -77,7 +77,7 @@ $app->get('/leaderboards', function() use($app)
 
 });
 
-$app->get('/leaderboards/callback', function(Request $request) use($app)
+$app->get('/leaderboards/login-callback', function(Request $request) use($app)
 {
   $error = $request->query->get('error', "none");
   $state = $request->query->get('state', "none");
