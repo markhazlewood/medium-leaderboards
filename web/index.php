@@ -113,7 +113,7 @@ $app->get('/leaderboards/medium-callback', function(Request $request) use($app)
 
       $app['monolog']->addDebug($postRequest);
 
-      return $app->post($postRequest);
+      return $app->redirect($postRequest);
   }
 
   return "nothing";
