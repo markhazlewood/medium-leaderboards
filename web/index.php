@@ -65,7 +65,7 @@ $app->get('/leaderboards/login', function() use($app)
 {
   $clientID = "a84e360b789f";
   $clientSecret = getenv('MEDIUM_APP_CLIENT_SECRET');
-  $callback = "https://medium-leaderboards.herokuapp.com/leaderboards/login-callback";
+  $callback = "https://medium-leaderboards.herokuapp.com/leaderboards/medium-callback";
 
   $shortTermAuthURL = 'https://medium.com/m/oauth/authorize?client_id=' . $clientID .
                         '&scope=basicProfile,publishPost' .
@@ -77,14 +77,46 @@ $app->get('/leaderboards/login', function() use($app)
 
 });
 
-$app->get('/leaderboards/login-callback', function(Request $request) use($app)
+$app->get('/leaderboards/medium-callback', function(Request $request) use($app)
 {
-  $error = $request->query->get('error', "none");
-  $state = $request->query->get('state', "none");
-  $code = $request->query->get('code', "none");
+  // Check if we need to parse the response as JSON
+  if (0 === strpos($request->headers->get('Content-Type'), 'application/json'))
+  {
+    $responseData = json_decode($request->getContent(), true);
 
-  return "<pre>error: " . $error . "<br />state: " . $state . "<br />code: " . $code . "</pre>";
 
+  }
+  else
+  {
+    // Check if this is the initial login response
+    $error = $request->query->get('error', "none");
+    $state = $request->query->get('state', "none");
+    $code = $request->query->get('code', "none");
+
+    // Check for and handle error
+    if ($state === "none")
+    {
+      return "<pre>Error: " . $error . "</pre>";
+    }
+
+    $callback  = "https://medium-leaderboards.herokuapp.com/leaderboards/medium-callback";
+
+    // Get long-term auth for the user
+    $postData = '' .
+      'code=' . $code .
+      '&client_id=a84e360b789f' .
+      '&client_secret=' . getenv('MEDIUM_APP_CLIENT_SECRET') .
+      '&grant_type=authorization_code' .
+      '&redirect_uri=' . $callback;
+
+      $postRequest = 'https://api.medium.com?' . $postData;
+
+      $app['monolog']->addDebug($postRequest);
+
+      return $app->post($postRequest);
+  }
+
+  return "nothing";
 });
 
 
